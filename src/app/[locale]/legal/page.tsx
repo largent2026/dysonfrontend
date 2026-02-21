@@ -72,19 +72,18 @@ export default async function LegalPage({
 
   // Si pas de config en base, afficher des valeurs par défaut (i18n) pour voir le résultat sans seed
   const isEmpty = !legal || Object.values(legal).every((v) => !v?.trim());
-  const displayLegal = isEmpty
-    ? {
-        companyName: t('legal.defaultCompanyName'),
-        legalForm: t('legal.defaultLegalForm'),
-        address: t('legal.defaultAddress'),
-        email: t('legal.defaultEmail'),
-        publicationManager: t('legal.defaultPublicationManager'),
-        host: t('legal.defaultHost'),
-        vatNumber: '',
-        intellectualProperty: t('legal.defaultIntellectualProperty'),
-        liability: t('legal.defaultLiability'),
-      }
-    : legal;
+  const defaultLegal = {
+    companyName: t('legal.defaultCompanyName'),
+    legalForm: t('legal.defaultLegalForm'),
+    address: t('legal.defaultAddress'),
+    email: t('legal.defaultEmail'),
+    publicationManager: t('legal.defaultPublicationManager'),
+    host: t('legal.defaultHost'),
+    vatNumber: '',
+    intellectualProperty: t('legal.defaultIntellectualProperty'),
+    liability: t('legal.defaultLiability'),
+  };
+  const displayLegal: typeof defaultLegal = isEmpty ? defaultLegal : legal ?? defaultLegal;
 
   return (
     <div className="flex min-h-screen flex-col">
