@@ -92,8 +92,10 @@ export default async function ProductPage({
         : undefined;
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000');
-  const productName = typeof product.name === 'string' ? product.name : (product.name as Record<string, string>)?.[locale] || (product.name as Record<string, string>)?.fr;
-  const productDesc = typeof product.description === 'string' ? product.description : (product.description as Record<string, string>)?.[locale] || (product.description as Record<string, string>)?.fr;
+  const nameObj = product.name && typeof product.name === 'object' ? (product.name as Record<string, string>) : undefined;
+  const productName = typeof product.name === 'string' ? product.name : nameObj?.[locale] || nameObj?.fr ?? '';
+  const descObj = product.description && typeof product.description === 'object' ? (product.description as Record<string, string>) : undefined;
+  const productDesc = typeof product.description === 'string' ? product.description : descObj?.[locale] || descObj?.fr;
   const imageUrl = product.images?.[0]?.url;
   const jsonLd = {
     '@context': 'https://schema.org',
